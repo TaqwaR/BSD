@@ -9,12 +9,12 @@
 // code must be written as one would in production alongside a team of other
 // developers who will be interfacing with your code.
 //
-// While there are no design mockups provided, we are interested in seeing what 
-// basic design choices you make such that the data is more easily digestible 
+// While there are no design mockups provided, we are interested in seeing what
+// basic design choices you make such that the data is more easily digestible
 // for end users. This is also an opportunity for you to demonstrate your CSS
 // abilities.
 //
-// Please plan to spend no more than 4 hours on this test. You will have an 
+// Please plan to spend no more than 4 hours on this test. You will have an
 // opportunity at the next interview to discuss what other ideas you might have
 // implemented if you had additional time, so it's fine to leave some things as
 // "TODO".
@@ -26,8 +26,8 @@
 //
 // TASKS:
 // * Display a table of humans alphabetically sorted by last name or whatever
-//   is closest to last, e.g. "Bail Prestor Organa" would be sorted based on 
-//   "Organa", "Qui-gon Jinn"'s last name is "Jinn", while "Dooku" would simply 
+//   is closest to last, e.g. "Bail Prestor Organa" would be sorted based on
+//   "Organa", "Qui-gon Jinn"'s last name is "Jinn", while "Dooku" would simply
 //   be sorted by 'Dooku.'
 // * Each table row should display the human's name, height (written in meters,
 //   i.e. 1.77m), mass (written in kilograms, i.e. 76kg), and hair color.
@@ -38,9 +38,9 @@
 //   - The most common hair color of all humans.
 //
 // REQUIREMENTS:
-// You may use whatever libraries and/or frameworks (including jQuery) you would like. 
-// Assume that we are only concerned about building for modern web browsers - specifically 
-// the current stable release of Chrome. Some initial code is provided to get you started, 
+// You may use whatever libraries and/or frameworks (including jQuery) you would like.
+// Assume that we are only concerned about building for modern web browsers - specifically
+// the current stable release of Chrome. Some initial code is provided to get you started,
 // though you may refactor this as you see fit.
 
 /**
@@ -86,15 +86,55 @@ function constructTableRow(data) {
 
 // Sample process of adding a row to the table.
 // TODO: Show all the humans.
-const swTable = document.getElementById('sw-table')
-    .getElementsByTagName('tbody')[0];
-fetchData('https://swapi.co/api/people/1/').then((data) => {
-  // TODO: Format height and mass.
-  const row = constructTableRow([
-    data.name, 
-    data.height, 
-    data.mass, 
-    data.hair_color
-  ]);
-  swTable.appendChild(row);
+const swTable = document.getElementById('sw-table').getElementsByTagName('tbody')[0];
+const allHumans = [];
+
+fetchData('https://swapi.co/api/people/').then((data) => {
+  allHumans.push(data);
+  console.log(allHumans);
+  console.log(allHumans[0].results[0]);
+  const firstNames = [];
+  const lastNames = [];
+  const FullNames = []
+
+  for (var i = 0; i < allHumans[0].results.length; i++) {
+
+    const firstName = allHumans[0].results[i].name.split(" ")[0];
+    const lastName = allHumans[0].results[i].name.split(" ")[1];
+
+    firstNames.push(firstName);
+    lastNames.push(lastName);
+
+    const sortedFirst = firstNames.sort()[0];
+    const sortedLast = lastNames.sort()[1];
+
+    FullNames.push(allHumans[0].results[i].name);
+    FullNames.sort();
+
+    //console.log(firstNames);
+    //console.log(lastNames);
+    //console.log(sortedFirst);
+    console.log(FullNames);
+
+
+    // TODO: Format height and mass.
+    const row = constructTableRow([
+      //allHumans[0].results[i].name,
+      firstName,
+      lastName,
+      allHumans[0].results[i].height,
+      allHumans[0].results[i].mass,
+      allHumans[0].results[i].hair_color
+    ]);
+
+    swTable.appendChild(row);
+  }
+  // // TODO: Format height and mass.
+  // const row = constructTableRow([
+  //   data.name,
+  //   data.height,
+  //   data.mass,
+  //   data.hair_color
+  // ]);
+  // swTable.appendChild(row);
 });
