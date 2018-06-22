@@ -5,24 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Blue State Digital |  Front End Web Developer Test</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css" />
+    <link rel="stylesheet" href="styles.css">
   </head>
 
-  <body>
-    <section id="sw-app">
-      <section id="sw-dashboard"></section>
-      <table id="sw-table" class="loading table">
-        <thead>
-           <tr>
-             <td>Name</td>
-             <td>Height</td>
-             <td>Mass</td>
-             <td>Hair Color</td>
-           <tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
+  <header>
+    <section class="hero container">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">Humans of Star Wars</h1>
+          <h2 class="subtitle">A List of Star Wars Humans that We Care About</h2>
+        </div>
+      </div>
     </section>
+  </header>
+
+  <body>
+    <section class="hero is-primary container gutter border-radius">
+      <section class="container gutter">
+        <h2 class="title has-text-centered">Quick Facts</h2>
+        <section class="columns gutter">
+          <div class="column has-text-centered has-background-primary dashboard-margins mass-left-margin">
+            <p>Average Mass</p>
+          </div>
+          <div class="column has-text-centered has-background-primary dashboard-margins">
+            <p>Tallest Human</p>
+          </div>
+          <div class="column has-text-centered has-background-primary dashboard-margins">
+            <p>Most Common Hair Color</p>
+          </div>
+        </section>
+      </section>
+    </section>
+
+    <section id="sw-app" class="container">
+      <section id="sw-dashboard"></section>
+      <section class="columns">
+        <table id="sw-table" class="loading table is-striped is-fullwidth">
+          <thead>
+             <tr>
+               <td>Name</td>
+               <td>Height</td>
+               <td>Mass</td>
+               <td>Hair Color</td>
+             <tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </section>
+    </section>
+
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script type="text/javascript" defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
