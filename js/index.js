@@ -93,12 +93,35 @@ fetchData('https://swapi.co/api/people/').then((data) => {
   allHumans.push(data);
   console.log(allHumans);
   console.log(allHumans[0].results[0]);
+  const firstNames = [];
+  const lastNames = [];
+  const FullNames = []
 
   for (var i = 0; i < allHumans[0].results.length; i++) {
 
+    const firstName = allHumans[0].results[i].name.split(" ")[0];
+    const lastName = allHumans[0].results[i].name.split(" ")[1];
+
+    firstNames.push(firstName);
+    lastNames.push(lastName);
+
+    const sortedFirst = firstNames.sort()[0];
+    const sortedLast = lastNames.sort()[1];
+
+    FullNames.push(allHumans[0].results[i].name);
+    FullNames.sort();
+
+    //console.log(firstNames);
+    //console.log(lastNames);
+    //console.log(sortedFirst);
+    console.log(FullNames);
+
+
     // TODO: Format height and mass.
     const row = constructTableRow([
-      allHumans[0].results[i].name,
+      //allHumans[0].results[i].name,
+      firstName,
+      lastName,
       allHumans[0].results[i].height,
       allHumans[0].results[i].mass,
       allHumans[0].results[i].hair_color
