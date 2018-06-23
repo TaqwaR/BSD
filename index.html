@@ -6,32 +6,35 @@
     <title>Blue State Digital |  Front End Web Developer Test</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css" />
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
   </head>
 
-  <header>
-    <section class="hero container">
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title">Humans of Star Wars</h1>
-          <h2 class="subtitle">A List of Star Wars Humans that We Care About</h2>
-        </div>
-      </div>
-    </section>
-  </header>
-
   <body>
+    <header>
+      <section class="hero container">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title">Humans of Star Wars</h1>
+            <h2 class="subtitle">A List of Star Wars Humans that We Care About</h2>
+          </div>
+        </div>
+      </section>
+    </header>
+
     <section class="hero is-primary container gutter border-radius">
       <section class="container gutter">
         <h2 class="title has-text-centered">Quick Facts</h2>
         <section class="columns gutter">
-          <div class="column has-text-centered has-background-primary dashboard-margins mass-left-margin">
-            <p>Average Mass</p>
+          <div class="column has-text-centered has-background-primary dashboard-margins mass-left-margin mass">
+            <p class="has-text-weight-bold">Average Mass</p>
           </div>
-          <div class="column has-text-centered has-background-primary dashboard-margins">
-            <p>Tallest Human</p>
+          <div class="column has-text-centered has-background-primary dashboard-margins tallest">
+            <p class="has-text-weight-bold">Tallest Human</p>
           </div>
-          <div class="column has-text-centered has-background-primary dashboard-margins">
-            <p>Most Common Hair Color</p>
+          <div class="column has-text-centered has-background-primary dashboard-margins hair">
+            <p class="has-text-weight-bold">Most Common Hair Color</p>
           </div>
         </section>
       </section>
@@ -54,6 +57,11 @@
         </table>
       </section>
     </section>
+    <footer>
+      <section class="container gutter">
+        <h3 class="title has-text-centered">Humans of Star Wars</h3>
+      </section>
+    </footer>
 
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>

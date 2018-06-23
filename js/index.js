@@ -93,10 +93,12 @@ fetchData('https://swapi.co/api/people/').then((data) => {
   allHumans.push(data);
   console.log("allHumans: ", allHumans);
   console.log("allHumans[0]: ", allHumans[0].results[0]);
+
   const firstNames = [];
   const lastNames = [];
   const fullNames = [];
   const lastNameFirstFullNames = [];
+  const meterConversion = 0.0254;
 
   const byName = allHumans[0].results.slice(0);
   byName.sort(function(a,b) {
@@ -106,10 +108,6 @@ fetchData('https://swapi.co/api/people/').then((data) => {
   });
 
   for (var i = 0; i < allHumans[0].results.length; i++) {
-
-    // const firstName = allHumans[0].results[i].name.split(" ")[0];
-    // const lastName = allHumans[0].results[i].name.split(" ")[1];
-    // const lastNameFirst = lastName + ", " + firstName;
 
     const firstName = byName[i].name.split(" ")[0];
     const lastName = byName[i].name.split(" ")[1];
@@ -125,15 +123,9 @@ fetchData('https://swapi.co/api/people/').then((data) => {
 
     // TODO: Format height and mass.
     const row = constructTableRow([
-      // allHumans[0].results[i].name,
-      // lastNameFirstFullNames[i],
-      // allHumans[0].results[i].height,
-      // allHumans[0].results[i].mass,
-      // allHumans[0].results[i].hair_color
-
       byName[i].name,
-      byName[i].height,
-      byName[i].mass,
+      Math.round(byName[i].height * meterConversion) + "m" ,
+      byName[i].mass + "kg",
       byName[i].hair_color,
     ]);
 
@@ -142,10 +134,19 @@ fetchData('https://swapi.co/api/people/').then((data) => {
     const splitNames = Object.assign({}, byName[i].name.split(" "));
     const newNameObj = splitNames[1];
     console.log(splitNames);
-    console.log(newNameObj);
+    //console.log(newNameObj);
 
   }
 
+  let mass = 0;
+  let totalMass = 0;
+
+  for (var i = 0; i < byName.length; i++) {
+    totalMass = mass + parseInt(byName[i].mass);
+  };
+
+  console.log(totalMass);
+  //$(".mass").append();
 
   console.log("First names: ", firstNames);
   console.log("Last names: ", lastNames);
