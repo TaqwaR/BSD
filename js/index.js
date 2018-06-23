@@ -113,6 +113,9 @@ fetchData('https://swapi.co/api/people/').then((data) => {
     const lastName = byName[i].name.split(" ")[1];
     const lastNameFirst = lastName + ", " + firstName;
 
+    byName[i].firstName = firstName;
+    byName[i].lastName = lastName;
+
     firstNames.push(firstName);
     lastNames.push(lastName);
     lastNameFirstFullNames.push(lastNameFirst);
@@ -126,7 +129,7 @@ fetchData('https://swapi.co/api/people/').then((data) => {
       byName[i].name,
       Math.round(byName[i].height * meterConversion) + "m" ,
       byName[i].mass + "kg",
-      byName[i].hair_color,
+      byName[i].hair_color.toUpperCase(),
     ]);
 
     swTable.appendChild(row);
@@ -154,5 +157,6 @@ fetchData('https://swapi.co/api/people/').then((data) => {
   console.log("Last name first full names: ", lastNameFirstFullNames);
   console.log("Last name first full names (sorted): ", lastNameFirstFullNames.sort());
   console.log("By name: ", byName);
+  //console.log("By name (sorted by last name): ", byName.lastName.sort());
 
 });

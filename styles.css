@@ -3,8 +3,13 @@ h1, h3, h4, h5 {
   font-family: 'Audiowide', cursive;
 }
 
-p {
+p, h2 {
   font-family: 'Open Sans', sans-serif;
+}
+
+.footer-text {
+  font-family: 'Audiowide', cursive;
+  font-size: 1em;
 }
 
 .dashboard-margins {
