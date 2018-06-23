@@ -1,3 +1,12 @@
+h1, h3, h4, h5 {
+  /* //font-family: 'Orbitron', sans-serif; */
+  font-family: 'Audiowide', cursive;
+}
+
+p {
+  font-family: 'Open Sans', sans-serif;
+}
+
 .dashboard-margins {
   margin-right: 7em;
 }
@@ -12,5 +21,5 @@
 }
 
 .border-radius {
-  border-radius: 1.5em;
+  border-radius: 0.5em;
 }
