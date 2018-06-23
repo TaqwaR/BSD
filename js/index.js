@@ -87,54 +87,71 @@ function constructTableRow(data) {
 // Sample process of adding a row to the table.
 // TODO: Show all the humans.
 const swTable = document.getElementById('sw-table').getElementsByTagName('tbody')[0];
-const allHumans = [];
+const allHumans = []; //my array of objects
 
 fetchData('https://swapi.co/api/people/').then((data) => {
   allHumans.push(data);
-  console.log(allHumans);
-  console.log(allHumans[0].results[0]);
+  console.log("allHumans: ", allHumans);
+  console.log("allHumans[0]: ", allHumans[0].results[0]);
   const firstNames = [];
   const lastNames = [];
-  const FullNames = []
+  const fullNames = [];
+  const lastNameFirstFullNames = [];
+
+  const byName = allHumans[0].results.slice(0);
+  byName.sort(function(a,b) {
+    let x = a.name[0].toLowerCase();
+    let y = b.name[0].toLowerCase();
+    return x < y ? -1 : x > y ? 1 : 0;
+  });
 
   for (var i = 0; i < allHumans[0].results.length; i++) {
 
-    const firstName = allHumans[0].results[i].name.split(" ")[0];
-    const lastName = allHumans[0].results[i].name.split(" ")[1];
+    // const firstName = allHumans[0].results[i].name.split(" ")[0];
+    // const lastName = allHumans[0].results[i].name.split(" ")[1];
+    // const lastNameFirst = lastName + ", " + firstName;
+
+    const firstName = byName[i].name.split(" ")[0];
+    const lastName = byName[i].name.split(" ")[1];
+    const lastNameFirst = lastName + ", " + firstName;
 
     firstNames.push(firstName);
     lastNames.push(lastName);
+    lastNameFirstFullNames.push(lastNameFirst);
 
-    const sortedFirst = firstNames.sort()[0];
-    const sortedLast = lastNames.sort()[1];
-
-    FullNames.push(allHumans[0].results[i].name);
-    FullNames.sort();
-
-    //console.log(firstNames);
-    //console.log(lastNames);
-    //console.log(sortedFirst);
-    console.log(FullNames);
+    //fullNames.push(allHumans[0].results[i].name);
+    fullNames.push(byName[i].name);
 
 
     // TODO: Format height and mass.
     const row = constructTableRow([
-      //allHumans[0].results[i].name,
-      firstName,
-      lastName,
-      allHumans[0].results[i].height,
-      allHumans[0].results[i].mass,
-      allHumans[0].results[i].hair_color
+      // allHumans[0].results[i].name,
+      // lastNameFirstFullNames[i],
+      // allHumans[0].results[i].height,
+      // allHumans[0].results[i].mass,
+      // allHumans[0].results[i].hair_color
+
+      byName[i].name,
+      byName[i].height,
+      byName[i].mass,
+      byName[i].hair_color,
     ]);
 
     swTable.appendChild(row);
+
+    const splitNames = Object.assign({}, byName[i].name.split(" "));
+    const newNameObj = splitNames[1];
+    console.log(splitNames);
+    console.log(newNameObj);
+
   }
-  // // TODO: Format height and mass.
-  // const row = constructTableRow([
-  //   data.name,
-  //   data.height,
-  //   data.mass,
-  //   data.hair_color
-  // ]);
-  // swTable.appendChild(row);
+
+
+  console.log("First names: ", firstNames);
+  console.log("Last names: ", lastNames);
+  console.log("Full names: ", fullNames);
+  console.log("Last name first full names: ", lastNameFirstFullNames);
+  console.log("Last name first full names (sorted): ", lastNameFirstFullNames.sort());
+  console.log("By name: ", byName);
+
 });
