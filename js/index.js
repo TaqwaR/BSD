@@ -102,12 +102,14 @@ fetchData('https://swapi.co/api/people/').then((data) => {
   let mass = 0;
   let totalMassArray = [];
   let heightArray = [];
+  let tallestHumanSlice;
+  let hairColors = [];
 
-// adding objects from API to the allHumans array.
+///Adds objects from API to the allHumans array.
   allHumans.push(data);
   console.log(allHumans);
 
-//for loop for splitting name key into first and last name and then saving them in an array.
+//For loop for splitting name key into first and last name and then saving them in an array.
   for (var i = 0; i < allHumans[0].results.length; i++) {
 
     const firstName = allHumans[0].results[i].name.split(" ")[0];
@@ -133,7 +135,8 @@ fetchData('https://swapi.co/api/people/').then((data) => {
 
   const massReducer = (accumulator, currentValue) => accumulator + currentValue;
 
-  //average mass
+
+  //////////////Average mass////////////////////////////
   for (var i = 0; i < allHumans[0].results.length; i++) {
     let totalMass = mass + parseInt(allHumans[0].results[i].mass);
     totalMassArray.push(totalMass);
@@ -144,7 +147,21 @@ fetchData('https://swapi.co/api/people/').then((data) => {
 
   $(".mass").append("<h5>" + massAverage + "</h5>");
 
-  //Tallest human
+
+  /////////////Popular hair caolor//////////////////////
+  for (var i = 0; i < allHumans[0].results.length; i++) {
+    hairColors.push(allHumans[0].results[i].hair_color);
+  }
+
+  // let colorsOnly = hairColors.filter(if (hairColors[i] != "n/a") {
+  //   return colorsOnly;
+  // });
+  //
+  // console.log(colorsOnly);
+  // console.log(hairColors);
+
+
+  /////////////////Tallest human//////////////////////////
   for (var i = 0; i < allHumans[0].results.length; i++) {
     let humanHeight = parseInt(allHumans[0].results[i].height) * meterConversion;
     let human = allHumans[0].results[i].name;
@@ -152,7 +169,8 @@ fetchData('https://swapi.co/api/people/').then((data) => {
     heightArray.push(humanPlusHeight);
   };
 
-  //heightArray.height.sort();
+
+  ///////////////////Sort by Object Key function/////////////////
   function sortByKey(array, key) {
   return array.sort(function(a, b) {
       var x = a[key]; var y = b[key];
@@ -161,23 +179,12 @@ fetchData('https://swapi.co/api/people/').then((data) => {
 }
 
   sortedHeights = sortByKey(heightArray, 'height');
+  tallestHumanSlice = sortedHeights.slice(-1)[0].human;
 
   console.log(heightArray);
   console.log(sortedHeights);
+  console.log(tallestHumanSlice);
 
-
-// sorting function for lastName
-  // allHumans[0].results[i].sort(function (a, b) {
-  //   let lastNameA = a.lastName.toUpperCase();
-  //   let lastNameB = b.lastName.toUpperCase();
-  //
-  //   if (lastNameA < lastNameB) {
-  //     return -1;
-  //   }
-  //   if (lastNameA > lastNameB) {
-  //     return 1;
-  //   }
-  //   return 0;
-  // });
+  $(".tallest").append("<h5>" + tallestHumanSlice + "</h5>")
 
 });
