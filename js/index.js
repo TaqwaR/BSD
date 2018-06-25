@@ -87,76 +87,97 @@ function constructTableRow(data) {
 // Sample process of adding a row to the table.
 // TODO: Show all the humans.
 const swTable = document.getElementById('sw-table').getElementsByTagName('tbody')[0];
-const allHumans = []; //my array of objects
 
 fetchData('https://swapi.co/api/people/').then((data) => {
-  allHumans.push(data);
-  console.log("allHumans: ", allHumans);
-  console.log("allHumans[0]: ", allHumans[0].results[0]);
 
+
+//initializing variables and arrays.
+  const allHumans = []; //my array of objects
   const firstNames = [];
   const lastNames = [];
   const fullNames = [];
   const lastNameFirstFullNames = [];
   const meterConversion = 0.0254;
 
-  const byName = allHumans[0].results.slice(0);
-  byName.sort(function(a,b) {
-    let x = a.name[0].toLowerCase();
-    let y = b.name[0].toLowerCase();
-    return x < y ? -1 : x > y ? 1 : 0;
-  });
+  let mass = 0;
+  let totalMassArray = [];
+  let heightArray = [];
 
+// adding objects from API to the allHumans array.
+  allHumans.push(data);
+  console.log(allHumans);
+
+//for loop for splitting name key into first and last name and then saving them in an array.
   for (var i = 0; i < allHumans[0].results.length; i++) {
 
-    const firstName = byName[i].name.split(" ")[0];
-    const lastName = byName[i].name.split(" ")[1];
-    const lastNameFirst = lastName + ", " + firstName;
+    const firstName = allHumans[0].results[i].name.split(" ")[0];
+    const lastName = allHumans[0].results[i].name.split(" ")[1];
 
-    byName[i].firstName = firstName;
-    byName[i].lastName = lastName;
+    allHumans[0].results[i].firstName = firstName;
+    allHumans[0].results[i].lastName = lastName;
 
-    firstNames.push(firstName);
-    lastNames.push(lastName);
-    lastNameFirstFullNames.push(lastNameFirst);
-
-    //fullNames.push(allHumans[0].results[i].name);
-    fullNames.push(byName[i].name);
-
-
+    // adds data retruned from API request to HTML table based on key
     // TODO: Format height and mass.
+
     const row = constructTableRow([
-      byName[i].name,
-      Math.round(byName[i].height * meterConversion) + "m" ,
-      byName[i].mass + "kg",
-      byName[i].hair_color.toUpperCase(),
+      allHumans[0].results[i].name,
+      allHumans[0].results[i].height * meterConversion + "m" ,
+      allHumans[0].results[i].mass + "kg",
+      allHumans[0].results[i].hair_color.toUpperCase(),
     ]);
 
     swTable.appendChild(row);
 
-    const splitNames = Object.assign({}, byName[i].name.split(" "));
-    const newNameObj = splitNames[1];
-    console.log(splitNames);
-    //console.log(newNameObj);
-
   }
 
-  let mass = 0;
-  let totalMass = 0;
 
-  for (var i = 0; i < byName.length; i++) {
-    totalMass = mass + parseInt(byName[i].mass);
+  const massReducer = (accumulator, currentValue) => accumulator + currentValue;
+
+  //average mass
+  for (var i = 0; i < allHumans[0].results.length; i++) {
+    let totalMass = mass + parseInt(allHumans[0].results[i].mass);
+    totalMassArray.push(totalMass);
   };
 
-  console.log(totalMass);
-  //$(".mass").append();
+  const totalMassSum = totalMassArray.reduce(massReducer);
+  const massAverage = totalMassSum/totalMassArray.length;
 
-  console.log("First names: ", firstNames);
-  console.log("Last names: ", lastNames);
-  console.log("Full names: ", fullNames);
-  console.log("Last name first full names: ", lastNameFirstFullNames);
-  console.log("Last name first full names (sorted): ", lastNameFirstFullNames.sort());
-  console.log("By name: ", byName);
-  //console.log("By name (sorted by last name): ", byName.lastName.sort());
+  $(".mass").append("<h5>" + massAverage + "</h5>");
+
+  //Tallest human
+  for (var i = 0; i < allHumans[0].results.length; i++) {
+    let humanHeight = parseInt(allHumans[0].results[i].height) * meterConversion;
+    let human = allHumans[0].results[i].name;
+    let humanPlusHeight = {human: human, height: humanHeight};
+    heightArray.push(humanPlusHeight);
+  };
+
+  //heightArray.height.sort();
+  function sortByKey(array, key) {
+  return array.sort(function(a, b) {
+      var x = a[key]; var y = b[key];
+      return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+  });
+}
+
+  sortedHeights = sortByKey(heightArray, 'height');
+
+  console.log(heightArray);
+  console.log(sortedHeights);
+
+
+// sorting function for lastName
+  // allHumans[0].results[i].sort(function (a, b) {
+  //   let lastNameA = a.lastName.toUpperCase();
+  //   let lastNameB = b.lastName.toUpperCase();
+  //
+  //   if (lastNameA < lastNameB) {
+  //     return -1;
+  //   }
+  //   if (lastNameA > lastNameB) {
+  //     return 1;
+  //   }
+  //   return 0;
+  // });
 
 });
