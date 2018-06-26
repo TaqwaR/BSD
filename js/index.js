@@ -130,6 +130,17 @@ fetchData('https://swapi.co/api/people/').then((data) => {
   }
 
 
+/* Sort by Object Key function */
+    function sortByKey(array, key) {
+    return array.sort(function(a, b) {
+        let x = a[key]; let y = b[key];
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
+  }
+
+  let sortedLastnames = sortByKey(allHumans[0].results, "lastName");
+  console.log(sortedLastnames);
+
   /* Average mass */
   const massReducer = (accumulator, currentValue) => accumulator + currentValue;
 
@@ -185,22 +196,17 @@ fetchData('https://swapi.co/api/people/').then((data) => {
   };
 
 
-  /* Sort by Object Key function */
-  function sortByKey(array, key) {
-  return array.sort(function(a, b) {
-      let x = a[key]; let y = b[key];
-      return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-  });
-}
-
   sortedHeights = sortByKey(heightArray, 'height');
   tallestHumanSlice = sortedHeights.slice(-1)[0].human;
 
   $(".tallest").append("<p>" + tallestHumanSlice + "</p>")
 
+
+
 });
 
-/* To Do
+/* TO DO
 /* - Alphabetize table rows
 /* - Add animation to Quick Facts section
+/* - Incorporate table UI library
 */
