@@ -139,7 +139,6 @@ fetchData('https://swapi.co/api/people/').then((data) => {
   }
 
   let sortedLastnames = sortByKey(allHumans[0].results, "lastName");
-  console.log(sortedLastnames);
 
   /* Average mass */
   const massReducer = (accumulator, currentValue) => accumulator + currentValue;
