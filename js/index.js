@@ -78,6 +78,7 @@ function constructElement(tagName, text, cssClasses) {
  */
 function constructTableRow(data) {
   const row = document.createElement('tr');
+  const parapgraph = document.createElement('p');
   data.forEach((datum) => {
     row.appendChild(constructElement('td', datum));
   });
@@ -110,7 +111,7 @@ fetchData('https://swapi.co/api/people/').then((data) => {
   console.log(allHumans);
 
 //For loop for splitting name key into first and last name and then saving them in an array.
-  for (var i = 0; i < allHumans[0].results.length; i++) {
+  for (let i = 0; i < allHumans[0].results.length; i++) {
 
     const firstName = allHumans[0].results[i].name.split(" ")[0];
     const lastName = allHumans[0].results[i].name.split(" ")[1];
@@ -137,7 +138,7 @@ fetchData('https://swapi.co/api/people/').then((data) => {
 
 
   //////////////Average mass////////////////////////////
-  for (var i = 0; i < allHumans[0].results.length; i++) {
+  for (let i = 0; i < allHumans[0].results.length; i++) {
     let totalMass = mass + parseInt(allHumans[0].results[i].mass);
     totalMassArray.push(totalMass);
   };
@@ -145,24 +146,43 @@ fetchData('https://swapi.co/api/people/').then((data) => {
   const totalMassSum = totalMassArray.reduce(massReducer);
   const massAverage = totalMassSum/totalMassArray.length;
 
-  $(".mass").append("<h5>" + massAverage + "</h5>");
+  $(".mass").append("<p>" + massAverage + "</p>");
 
 
   /////////////Popular hair caolor//////////////////////
-  for (var i = 0; i < allHumans[0].results.length; i++) {
+  for (let i = 0; i < allHumans[0].results.length; i++) {
     hairColors.push(allHumans[0].results[i].hair_color);
   }
 
-  // let colorsOnly = hairColors.filter(if (hairColors[i] != "n/a") {
-  //   return colorsOnly;
-  // });
-  //
-  // console.log(colorsOnly);
-  // console.log(hairColors);
+  let hairColorsFiltered = hairColors.filter(i => i !== "n/a")
+
+  function mostFrequentHair(array){
+  let result = array[0];
+  let tmp = 0;
+  for(let i = 0; i < array.length; i++){
+    let count = 0;
+    for(let j = 0; j < array.length; j++){
+      if(array[i]===array[j]){
+        count++;
+      }
+    }
+    if(count > tmp){
+      tmp = count;
+      result = array[i];
+    }
+  }
+  return result;
+}
+
+  console.log(hairColors);
+  console.log(hairColorsFiltered);
+  console.log(mostFrequentHair(hairColorsFiltered));
+
+  $(".hair").append("<p>" + mostFrequentHair(hairColorsFiltered).toUpperCase() + "</p>")
 
 
   /////////////////Tallest human//////////////////////////
-  for (var i = 0; i < allHumans[0].results.length; i++) {
+  for (let i = 0; i < allHumans[0].results.length; i++) {
     let humanHeight = parseInt(allHumans[0].results[i].height) * meterConversion;
     let human = allHumans[0].results[i].name;
     let humanPlusHeight = {human: human, height: humanHeight};
@@ -173,7 +193,7 @@ fetchData('https://swapi.co/api/people/').then((data) => {
   ///////////////////Sort by Object Key function/////////////////
   function sortByKey(array, key) {
   return array.sort(function(a, b) {
-      var x = a[key]; var y = b[key];
+      let x = a[key]; let y = b[key];
       return ((x < y) ? -1 : ((x > y) ? 1 : 0));
   });
 }
@@ -185,6 +205,6 @@ fetchData('https://swapi.co/api/people/').then((data) => {
   console.log(sortedHeights);
   console.log(tallestHumanSlice);
 
-  $(".tallest").append("<h5>" + tallestHumanSlice + "</h5>")
+  $(".tallest").append("<p>" + tallestHumanSlice + "</p>")
 
 });

@@ -1,30 +1,26 @@
-h1, h3, h4, h5 {
-  /* //font-family: 'Orbitron', sans-serif; */
+h1, h2, h3, h4, h5 {
   font-family: 'Audiowide', cursive;
 }
 
-p, h2 {
+p {
   font-family: 'Open Sans', sans-serif;
 }
+
 
 .footer-text {
   font-family: 'Audiowide', cursive;
   font-size: 1em;
 }
 
-.dashboard-margins {
-  margin-right: 7em;
-}
-
-.mass-left-margin {
-  margin-left: 7em;
-}
 
 .gutter {
   margin-bottom: 3em;
   margin-top: 3em;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-right: 4em;
 }
 
 .border-radius {
-  border-radius: 0.5em;
+  border-radius: 0.2em;
 }
