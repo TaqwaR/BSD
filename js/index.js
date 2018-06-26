@@ -141,7 +141,7 @@ fetchData('https://swapi.co/api/people/').then((data) => {
   const totalMassSum = totalMassArray.reduce(massReducer);
   const massAverage = totalMassSum/totalMassArray.length;
 
-  $(".mass").append("<p>" + massAverage + "</p>");
+  $(".mass").append("<p>" + massAverage + "kg</p>");
 
 
   /* Popular hair color */
