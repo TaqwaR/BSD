@@ -106,7 +106,6 @@ fetchData('https://swapi.co/api/people/').then((data) => {
 
 /* Adds objects from API to the allHumans array  */
   allHumans.push(data);
-  console.log(allHumans);
 
 
 /* For loop for splitting name key into first and last name and then saving them in an array. */
@@ -118,7 +117,7 @@ fetchData('https://swapi.co/api/people/').then((data) => {
     allHumans[0].results[i].firstName = firstName;
     allHumans[0].results[i].lastName = lastName;
 
-/* Adds data retruned from API request to HTML table based on key */ 
+/* Adds data retruned from API request to HTML table based on key */
     const row = constructTableRow([
       allHumans[0].results[i].name,
       Math.round(allHumans[0].results[i].height * meterConversion * 10000) / 10000 + "m",
@@ -174,10 +173,6 @@ fetchData('https://swapi.co/api/people/').then((data) => {
   return result;
 }
 
-  console.log(hairColors);
-  console.log(hairColorsFiltered);
-  console.log(mostCommonHair(hairColorsFiltered));
-
   $(".hair").append("<p>" + mostCommonHair(hairColorsFiltered).toUpperCase() + "</p>")
 
 
@@ -201,14 +196,11 @@ fetchData('https://swapi.co/api/people/').then((data) => {
   sortedHeights = sortByKey(heightArray, 'height');
   tallestHumanSlice = sortedHeights.slice(-1)[0].human;
 
-  console.log(heightArray);
-  console.log(sortedHeights);
-  console.log(tallestHumanSlice);
-
   $(".tallest").append("<p>" + tallestHumanSlice + "</p>")
 
 });
 
-/* TODO:
+/* To Do
 /* - Alphabetize table rows
 /* - Add animation to Quick Facts section
+*/
