@@ -85,14 +85,12 @@ function constructTableRow(data) {
   return row;
 }
 
-// Sample process of adding a row to the table.
-// TODO: Show all the humans.
 const swTable = document.getElementById('sw-table').getElementsByTagName('tbody')[0];
 
 fetchData('https://swapi.co/api/people/').then((data) => {
 
 
-//initializing variables and arrays.
+/* initializing variables and arrays */
   const allHumans = []; //my array of objects
   const firstNames = [];
   const lastNames = [];
@@ -106,11 +104,11 @@ fetchData('https://swapi.co/api/people/').then((data) => {
   let tallestHumanSlice;
   let hairColors = [];
 
-///Adds objects from API to the allHumans array.
+/* Adds objects from API to the allHumans array  */
   allHumans.push(data);
-  console.log(allHumans);
 
-//For loop for splitting name key into first and last name and then saving them in an array.
+
+/* For loop for splitting name key into first and last name and then saving them in an array. */
   for (let i = 0; i < allHumans[0].results.length; i++) {
 
     const firstName = allHumans[0].results[i].name.split(" ")[0];
@@ -119,12 +117,10 @@ fetchData('https://swapi.co/api/people/').then((data) => {
     allHumans[0].results[i].firstName = firstName;
     allHumans[0].results[i].lastName = lastName;
 
-    // adds data retruned from API request to HTML table based on key
-    // TODO: Format height and mass.
-
+/* Adds data retruned from API request to HTML table based on key */
     const row = constructTableRow([
       allHumans[0].results[i].name,
-      allHumans[0].results[i].height * meterConversion + "m" ,
+      Math.round(allHumans[0].results[i].height * meterConversion * 10000) / 10000 + "m",
       allHumans[0].results[i].mass + "kg",
       allHumans[0].results[i].hair_color.toUpperCase(),
     ]);
@@ -134,10 +130,9 @@ fetchData('https://swapi.co/api/people/').then((data) => {
   }
 
 
+  /* Average mass */
   const massReducer = (accumulator, currentValue) => accumulator + currentValue;
 
-
-  //////////////Average mass////////////////////////////
   for (let i = 0; i < allHumans[0].results.length; i++) {
     let totalMass = mass + parseInt(allHumans[0].results[i].mass);
     totalMassArray.push(totalMass);
@@ -149,39 +144,39 @@ fetchData('https://swapi.co/api/people/').then((data) => {
   $(".mass").append("<p>" + massAverage + "</p>");
 
 
-  /////////////Popular hair caolor//////////////////////
+  /* Popular hair color */
   for (let i = 0; i < allHumans[0].results.length; i++) {
     hairColors.push(allHumans[0].results[i].hair_color);
   }
 
   let hairColorsFiltered = hairColors.filter(i => i !== "n/a")
 
-  function mostFrequentHair(array){
-  let result = array[0];
-  let tmp = 0;
-  for(let i = 0; i < array.length; i++){
-    let count = 0;
-    for(let j = 0; j < array.length; j++){
-      if(array[i]===array[j]){
+  /* Most Common Hair Color */
+  function mostCommonHair(array) {
+    let result = array[0];
+    let holder = 0;
+
+    for(let i = 0; i < array.length; i++) {
+      let count = 0;
+
+      for(let j = 0; j < array.length; j++) {
+        if(array[i]===array[j]) {
         count++;
+        }
+      }
+
+      if(count > holder) {
+        holder = count;
+        result = array[i];
       }
     }
-    if(count > tmp){
-      tmp = count;
-      result = array[i];
-    }
-  }
   return result;
 }
 
-  console.log(hairColors);
-  console.log(hairColorsFiltered);
-  console.log(mostFrequentHair(hairColorsFiltered));
-
-  $(".hair").append("<p>" + mostFrequentHair(hairColorsFiltered).toUpperCase() + "</p>")
+  $(".hair").append("<p>" + mostCommonHair(hairColorsFiltered).toUpperCase() + "</p>")
 
 
-  /////////////////Tallest human//////////////////////////
+  /* Tallest human */
   for (let i = 0; i < allHumans[0].results.length; i++) {
     let humanHeight = parseInt(allHumans[0].results[i].height) * meterConversion;
     let human = allHumans[0].results[i].name;
@@ -190,7 +185,7 @@ fetchData('https://swapi.co/api/people/').then((data) => {
   };
 
 
-  ///////////////////Sort by Object Key function/////////////////
+  /* Sort by Object Key function */
   function sortByKey(array, key) {
   return array.sort(function(a, b) {
       let x = a[key]; let y = b[key];
@@ -201,10 +196,11 @@ fetchData('https://swapi.co/api/people/').then((data) => {
   sortedHeights = sortByKey(heightArray, 'height');
   tallestHumanSlice = sortedHeights.slice(-1)[0].human;
 
-  console.log(heightArray);
-  console.log(sortedHeights);
-  console.log(tallestHumanSlice);
-
   $(".tallest").append("<p>" + tallestHumanSlice + "</p>")
 
 });
+
+/* To Do
+/* - Alphabetize table rows
+/* - Add animation to Quick Facts section
+*/

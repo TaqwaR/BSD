@@ -12,6 +12,10 @@ p {
   font-size: 1em;
 }
 
+.header-hero {
+  padding-left: 0;
+  text-align: center;
+}
 
 .gutter {
   margin-bottom: 3em;
@@ -21,6 +25,35 @@ p {
   padding-right: 4em;
 }
 
+footer .gutter {
+  padding-left: 3.8em;
+  padding-top: 2em;
+}
+
 .border-radius {
   border-radius: 0.2em;
+  padding-right: 5.2em;
+}
+
+/*********  media queries *************/
+@media screen and (max-width:1080px) {
+
+  .gutter {
+    padding-left: 4.1em;
+  }
+}
+
+@media screen and (max-width:544px) {
+
+  .header-hero {
+    padding-left: 0;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width:414px) {
+
+  .container-gutter-plus {
+    padding-left: 2.3em;
+  }
 }
